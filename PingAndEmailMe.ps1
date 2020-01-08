@@ -29,19 +29,8 @@ while ($running -eq 1)
         if (Test-Connection -Quiet -ComputerName $server -Count 3)
         {
             $truly = 0
-            Write-Host "$server is ALIVE from a network perspective! Checking further!" -ForegroundColor Green
-            if (Invoke-Command -ComputerName $server -ScriptBlock { Get-ChildItem })
-            {
-                Write-Host "$server is truly alive!" -ForegroundColor Magenta
-                emailMe $server
-                $truly = 1
-            }
-            if ($truly -eq 0) 
-            {
-                Write-Host "False positive. DNS anomaly. Moving on." -ForegroundColor Red
-            }
+            Write-Host "$server is ALIVE from a network perspective!" -ForegroundColor Green
         }
-
         if (-not(Test-Connection -Quiet -ComputerName $server -Count 3))
         {
             Write-Host "$server is DEAD" -ForegroundColor Red
@@ -49,7 +38,6 @@ while ($running -eq 1)
     }
     Write-Host ""
     Write-Host "Waiting 10 minutes to try again. Goodnight." -ForegroundColor Blue
-    Write-Host "zzZzzZzzZzzZzzZzzZzzZzzZzzZzzZzzZzzZzzZzzZ" -ForegroundColor Blue
     Write-Host ""
     Get-Date
     Write-Host ""
