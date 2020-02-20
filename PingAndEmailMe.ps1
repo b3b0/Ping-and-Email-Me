@@ -30,6 +30,7 @@ while ($running -eq 1)
         {
             $truly = 0
             Write-Host "$server is ALIVE from a network perspective!" -ForegroundColor Green
+            emailMe($server)
         }
         if (-not(Test-Connection -Quiet -ComputerName $server -Count 3))
         {
